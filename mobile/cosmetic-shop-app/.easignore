@@ -1,0 +1,29 @@
+# Ignore local dev folders
+node_modules/
+.expo/
+.expo-shared/
+android/
+ios/
+web-build/
+dist/
+build/
+npm-debug.log
+yarn-error.log
+
+# Ignore git and editor configs
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Ignore temporary assets
+assets/videos/
+assets/raw/
+assets/temp/
+assets/debug/
+
+# Ignore test archives
+*.tar
+*.zip
+*.bak
+*.tmp

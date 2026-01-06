@@ -1,0 +1,20 @@
+# 1. Ignore everything
+**
+
+# 2. Allow only required project files
+!cosmetic-shop-app/App.js
+!cosmetic-shop-app/app.json
+!cosmetic-shop-app/package.json
+!cosmetic-shop-app/package-lock.json
+!cosmetic-shop-app/eas.json
+!cosmetic-shop-app/babel.config.js
+!cosmetic-shop-app/metro.config.js
+!cosmetic-shop-app/tsconfig.json
+
+# 3. Allow source folders
+!cosmetic-shop-app/src/**
+!cosmetic-shop-app/assets/**
+!cosmetic-shop-app/components/**
+!cosmetic-shop-app/constants/**
+!cosmetic-shop-app/hooks/**
+!cosmetic-shop-app/app/**

@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "Delivery",
+    "slug": "delivery",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+
+    "plugins": [
+      "expo-router",
+      "expo-notifications",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow Delivery Partner to access your location while using the app.",
+          "locationAlwaysAndWhenInUsePermission": "Allow Delivery Partner to track your location during delivery even in background."
+        }
+      ]
+    ],
+
+    "android": {
+      "package": "com.kashmircart.delivery",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "FOREGROUND_SERVICE",
+        "FOREGROUND_SERVICE_LOCATION"
+      ]
+    },
+
+    "ios": {
+      "supportsTablet": false
+    },
+
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ec358933-4a54-4a6e-92ef-d748409facfd"
+      }
+    }
+  }
+}

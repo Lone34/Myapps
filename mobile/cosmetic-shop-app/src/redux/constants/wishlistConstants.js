@@ -1,0 +1,6 @@
+/* === WISHLIST CONSTANTS === */
+
+// This one set of actions will handle ADD, REMOVE, and FETCH.
+export const WISHLIST_STATE_REQUEST = 'WISHLIST_STATE_REQUEST';
+export const WISHLIST_STATE_SUCCESS = 'WISHLIST_STATE_SUCCESS';
+export const WISHLIST_STATE_FAIL = 'WISHLIST_STATE_FAIL';

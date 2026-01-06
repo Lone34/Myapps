@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "426528857550",
+    "project_id": "kashmircart-12268",
+    "storage_bucket": "kashmircart-12268.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426528857550:android:d7a690c50b04fa86171f9f",
+        "android_client_info": {
+          "package_name": "com.fnaaz.cosmeticshopapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhzGIMt3sIyxowgTcOqocwlTF6qFkAAGY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
