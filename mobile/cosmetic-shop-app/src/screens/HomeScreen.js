@@ -258,24 +258,24 @@ const ProductCard = ({ item, router, userLocation, styleType = 'grid' }) => {
       <View style={styles.transparentCardContent}>
         <View style={isGrid3 ? styles.grid3ImgWrapper : styles.gridImgWrapper}>
           {img ? (
-            <Image 
-              source={{ uri: img }} 
-              style={styles.productImg} 
-              contentFit="cover" 
-              transition={300} 
-            />
+            <View style={{ flex: 1, backgroundColor: '#fff', padding: 6 }}>
+              <Image
+                source={{ uri: img }}
+                style={{ width: '100%', height: '100%' }}
+                contentFit="contain"   // ✅ best for cosmetic products
+                transition={300}
+              />
+            </View>
           ) : (
             <View style={styles.imgPlaceholder} />
           )}
-          
-          {/* Discount Badge - Keep this, it looks good on image */}
+
           {showDiscount && discount > 0 && (
             <View style={styles.discountBadge}>
-               <Text style={styles.discountBadgeText}>{discount}%</Text>
+              <Text style={styles.discountBadgeText}>{discount}%</Text>
             </View>
           )}
         </View>
-
         <View style={styles.productInfo}>
           {/* Deliverable Badge */}
           {badgeLabel && (
@@ -319,13 +319,21 @@ const TodaysSpecialCarousel = ({ items = [], router, onViewAll, userLocation }) 
   if (!items || !items.length) return null;
 
   return (
-    <View style={styles.sectionContainer}>
+    <View style={[styles.sectionContainer, { marginTop: 12 }]}>
       <SectionHeader title="Today's Special" onViewAll={onViewAll} icon="star" iconColor="#FFD700" />
-
-      <View style={{ marginTop: 10 }}>
+    
+      <View
+        style={{
+          marginTop: 6,
+          marginBottom: 28,
+          height: 150,
+          overflow: 'hidden',
+        }}
+      >
         <CurvedCarousel
           data={items}
-          cardWidth={120} // ✅ Reduced width
+          cardWidth={120}
+          itemSpacing={12}
           autoPlay
           autoPlayInterval={4500}
           renderItem={(item) => {
@@ -356,7 +364,7 @@ const TodaysSpecialCarousel = ({ items = [], router, onViewAll, userLocation }) 
                 />
                 <LinearGradient colors={['transparent', 'rgba(0,0,0,0.9)']} style={styles.specialOverlay}>
                   <Text numberOfLines={1} style={styles.specialTitle}>{item.name}</Text>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'center', flexWrap: 'nowrap' }}>
                     <Text style={styles.specialPrice}>₹{price.toFixed(0)}</Text>
                     {mrp > price && <Text style={styles.specialMrp}>₹{mrp.toFixed(0)}</Text>}
                   </View>
@@ -381,7 +389,7 @@ const MostLovedGrid = ({ items = [], router, userLocation }) => {
       
       {/* ✅ ADDED BACKGROUND CONTAINER */}
       <LinearGradient 
-        colors={['#1a1025', '#0f0518']} 
+        colors={['#1B1A17', '#141311']}
         start={{x:0, y:0}} end={{x:1, y:1}}
         style={styles.mostLovedBackground}
       >
@@ -1103,7 +1111,7 @@ const styles = StyleSheet.create({
   collectionText: { fontSize: 11, color: '#E2E8F0', fontWeight: '600', textAlign: 'center' },
 
   // --- HEADERS ---
-  sectionContainer: { marginTop: 28, paddingHorizontal: 12 },
+  sectionContainer: { marginTop: 26, paddingHorizontal: 12 },
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, paddingHorizontal: 4 },
   sectionTitle: { fontSize: 20, fontWeight: '800', color: '#F8FAFC', letterSpacing: 0.5 },
   sectionSubtitle: { fontSize: 10, color: '#94A3B8', fontWeight: '700', letterSpacing: 1 },
@@ -1115,17 +1123,42 @@ const styles = StyleSheet.create({
   
   // 3-Column Styles
   grid3Card: { width: '33.33%', padding: 4 },
-  grid3ImgWrapper: { height: 105, width: '100%', marginBottom: 6, borderRadius: 12, overflow: 'hidden', backgroundColor: '#1E293B' },
-  
+  // 3-column grid
+  grid3ImgWrapper: {
+    height: 105,
+    width: '100%',
+    marginBottom: 6,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: '#FFFFFF', // ✅ FORCE WHITE
+  },  
   // Standard Styles
   gridCard: { width: '50%', padding: 6 },
-  gridImgWrapper: { height: 160, width: '100%', marginBottom: 8, borderRadius: 16, overflow: 'hidden', backgroundColor: '#1E293B' },
+  // 2-column grid
+  gridImgWrapper: {
+    height: 160,
+    width: '100%',
+    marginBottom: 8,
+    borderRadius: 16,
+    overflow: 'hidden',
+    backgroundColor: '#FFFFFF', // ✅ FORCE WHITE
+  },
   
   // Wrapper for transparent content
   transparentCardContent: { padding: 4 },
 
-  productImg: { width: '100%', height: '100%' },
-  imgPlaceholder: { width: '100%', height: '100%', backgroundColor: '#334155' },
+  productImg: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#FFFFFF',
+  },
+  
+  imgPlaceholder: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#FFFFFF',
+  },
+  
   
   productName: { fontSize: 12, fontWeight: '600', color: '#E2E8F0', marginBottom: 2, lineHeight: 16 },
   productPrice: { fontSize: 13, fontWeight: '700', color: '#FFD700', marginRight: 6 },
@@ -1140,20 +1173,20 @@ const styles = StyleSheet.create({
   badgeText: { fontWeight: '700', marginLeft: 3 },
 
   // --- TODAYS SPECIAL (SMALLER) ---
-  specialCard: { alignItems: 'center', marginHorizontal: 6, borderRadius: 12, overflow: 'hidden', width: 120, height: 160, borderWidth: 1, borderColor: '#FFD700' },
+  specialCard: { alignItems: 'center', marginHorizontal: 6, borderRadius: 12, overflow: 'hidden', width: 120, height: 145, borderWidth: 1, borderColor: '#FFD700' },
   specialImg: { width: '100%', height: '100%' },
-  specialOverlay: { position: 'absolute', bottom: 0, left: 0, right: 0, padding: 8, paddingTop: 24 },
+  specialOverlay: { position: 'absolute', bottom: 0, left: 0, right: 0, padding: 6, paddingTop: 12 },
   specialTitle: { color: '#fff', fontSize: 11, fontWeight: '700', textAlign: 'center', marginBottom: 2 },
   specialPrice: { color: '#FFD700', fontSize: 12, fontWeight: '800', marginRight: 4 },
   specialMrp: { color: '#ccc', fontSize: 9, textDecorationLine: 'line-through' },
 
   // --- MOST LOVED (WITH BACKGROUND) ---
-  mostLovedBackground: { borderRadius: 20, padding: 12, borderWidth: 1, borderColor: 'rgba(255,255,255,0.05)' },
+  mostLovedBackground: { borderRadius: 20, padding: 12, borderWidth: 1, borderColor: '#FFF' },
   mostLovedGridContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start' },
   mostLovedItem: { width: '25%', alignItems: 'center', marginBottom: 12 },
-  mostLovedImgBorder: { width: 64, height: 64, borderRadius: 32, padding: 2, borderWidth: 1.5, borderColor: '#FF007F', marginBottom: 6 },
+  mostLovedImgBorder: { width: 64, height: 64, borderRadius: 32, padding: 2, borderWidth: 1.5, borderColor: '#D6C28A', marginBottom: 6 },
   mostLovedThumb: { width: '100%', height: '100%', borderRadius: 32 },
-  mostLovedPriceTiny: { color: '#FF007F', fontSize: 10, fontWeight: '700' },
+  mostLovedPriceTiny: { color: '#FFF', fontSize: 10, fontWeight: '700' },
 
   // --- INLINE BANNER ---
   inlineBannerCard: { width: '100%', marginTop: 16, marginBottom: 16, borderRadius: 16, overflow: 'hidden', borderWidth: 1, borderColor: '#334155' },
@@ -1295,7 +1328,7 @@ const styles = StyleSheet.create({
   // --- HERO LAYOUT (1 Big, 2 Small) ---
   heroLayoutContainer: {
     flexDirection: 'row',
-    height: 220,
+    height: 280,
     marginTop: 10,
   },
   heroBigCard: {
@@ -1303,7 +1336,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderRadius: 16,
     overflow: 'hidden',
-    backgroundColor: '#1E293B',
+    backgroundColor: '#FFF',
     borderWidth: 1,
     borderColor: '#334155',
   },
@@ -1335,7 +1368,7 @@ const styles = StyleSheet.create({
   heroSmallCard: {
     height: '48%', 
     borderRadius: 12,
-    backgroundColor: '#1E293B',
+    backgroundColor: '#FFF',
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: '#334155',
@@ -1366,7 +1399,7 @@ const styles = StyleSheet.create({
   gemCard: {
     width: 130,
     marginRight: 12,
-    backgroundColor: 'rgba(255,255,255,0.03)', 
+    backgroundColor: 'rgba(255,255,255,0.05)', 
     borderRadius: 14,
     padding: 8,
     borderWidth: 1,
@@ -1374,11 +1407,11 @@ const styles = StyleSheet.create({
   },
   gemImgWrapper: {
     width: '100%',
-    height: 110,
+    height: 130,
     borderRadius: 10,
     overflow: 'hidden',
     marginBottom: 8,
-    backgroundColor: '#000',
+    backgroundColor: '#FFF',
   },
   gemImg: {
     width: '100%',
@@ -1392,7 +1425,7 @@ const styles = StyleSheet.create({
   },
   gemPrice: {
     color: '#00F0FF', 
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '700',
   },
   

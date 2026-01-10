@@ -488,7 +488,10 @@ export default function ProductScreen() {
     return true;
   };
 
-  const handleAddToCart = async () => {
+  // ======================================================
+  // 🔒 UPDATED: HANDLE ADD TO CART WITH SHOP CONFLICT
+  // ======================================================
+  const handleAddToCart = async (forceNewBasket = false) => {
     if (!ensureLoggedIn('Please login to shop.')) return;
     
     // Check if user needs to select something
@@ -503,14 +506,49 @@ export default function ProductScreen() {
     }
     
     try {
+      // Pass force_new_basket param to backend
       await client.post('/api/cart/add/', { 
           variation_id: currentVariation ? Number(currentVariation.id) : null,
           quantity: qty, 
           color_name: selectedOption, // Pass generic grouping value here
-          replace: false 
+          replace: false,
+          force_new_basket: forceNewBasket
       });
-      Alert.alert('Added to Cart', 'Successfully added.', [{ text: 'Go to Cart', onPress: () => router.push('/(tabs)/cart') }, { text: 'Stay Here', style: 'cancel' }]);
-    } catch (e: any) { Alert.alert('Error', e?.response?.data?.detail || 'Could not add to cart'); }
+
+      Alert.alert('Added to Cart', 'Successfully added.', [
+        { text: 'Go to Cart', onPress: () => router.push('/(tabs)/cart') }, 
+        { text: 'Stay Here', style: 'cancel' }
+      ]);
+
+    } catch (e: any) { 
+        // 🔒 CHECK FOR SHOP MISMATCH ERROR
+        if (e?.response?.status === 409 && e?.response?.data?.detail === 'SHOP_MISMATCH') {
+            const { existing_shop_name } = e.response.data;
+            
+            Alert.alert(
+                'Different Shop Detected',
+                `Your cart contains items from "${existing_shop_name}".\n\nYou can only order from one shop at a time.`,
+                [
+                    { 
+                        text: 'Cancel', 
+                        style: 'cancel' 
+                    },
+                    { 
+                        text: 'Buy Now Instead', 
+                        onPress: handleBuyNow // Directs them to checkout immediately
+                    },
+                    { 
+                        text: 'Clear Cart & Add', 
+                        style: 'destructive',
+                        onPress: () => handleAddToCart(true) // Recursively call with force=true
+                    }
+                ]
+            );
+            return;
+        }
+
+        Alert.alert('Error', e?.response?.data?.detail || 'Could not add to cart'); 
+    }
   };
 
   const handleBuyNow = async () => {
@@ -850,7 +888,7 @@ export default function ProductScreen() {
                     { marginLeft: 0 },
                     isOutOfStock && { opacity: 0.5, backgroundColor: '#555' }
                 ]} 
-                onPress={handleAddToCart}
+                onPress={() => handleAddToCart(false)}
                 disabled={isOutOfStock}
             >
                 <Ionicons name="cart-outline" size={18} color={isOutOfStock ? '#aaa' : '#000'} />
