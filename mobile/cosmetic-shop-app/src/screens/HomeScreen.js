@@ -356,12 +356,15 @@ const TodaysSpecialCarousel = ({ items = [], router, onViewAll, userLocation }) 
                   })
                 }
               >
-                <Image
-                  source={{ uri: img }}
-                  style={styles.specialImg}
-                  contentFit="cover"
-                  transition={500}
-                />
+                <View style={styles.specialImgWrapper}>
+                  <Image
+                    source={{ uri: img }}
+                    style={styles.specialImg}
+                    contentFit="contain"   // 🔑 important
+                    transition={500}
+                  />
+                </View>
+                
                 <LinearGradient colors={['transparent', 'rgba(0,0,0,0.9)']} style={styles.specialOverlay}>
                   <Text numberOfLines={1} style={styles.specialTitle}>{item.name}</Text>
                   <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'center', flexWrap: 'nowrap' }}>
@@ -413,7 +416,13 @@ const MostLovedGrid = ({ items = [], router, userLocation }) => {
                 })}
               >
                 <View style={styles.mostLovedImgBorder}>
-                    <Image source={{ uri: img }} style={styles.mostLovedThumb} contentFit="cover" />
+                  <View style={styles.mostLovedImgInner}>
+                    <Image
+                      source={{ uri: img }}
+                      style={styles.mostLovedThumb}
+                      contentFit="contain"
+                    />
+                  </View>
                 </View>
                 <Text style={styles.mostLovedPriceTiny}>₹{price.toFixed(0)}</Text>
               </TouchableOpacity>
@@ -1111,9 +1120,9 @@ const styles = StyleSheet.create({
   collectionText: { fontSize: 11, color: '#E2E8F0', fontWeight: '600', textAlign: 'center' },
 
   // --- HEADERS ---
-  sectionContainer: { marginTop: 26, paddingHorizontal: 12 },
+  sectionContainer: { marginTop: 8, paddingHorizontal: 12, marginBottom: 8},
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, paddingHorizontal: 4 },
-  sectionTitle: { fontSize: 20, fontWeight: '800', color: '#F8FAFC', letterSpacing: 0.5 },
+  sectionTitle: { fontSize: 20, fontWeight: '800', color: '#F8FAFC', letterSpacing: 0.5, marginBottom: 6},
   sectionSubtitle: { fontSize: 10, color: '#94A3B8', fontWeight: '700', letterSpacing: 1 },
   viewAllBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#D4AF37', paddingVertical: 4, paddingHorizontal: 10, borderRadius: 20 },
   viewAllText: { fontSize: 10, fontWeight: '800', color: '#000', marginRight: 4 },
@@ -1179,6 +1188,12 @@ const styles = StyleSheet.create({
   specialTitle: { color: '#fff', fontSize: 11, fontWeight: '700', textAlign: 'center', marginBottom: 2 },
   specialPrice: { color: '#FFD700', fontSize: 12, fontWeight: '800', marginRight: 4 },
   specialMrp: { color: '#ccc', fontSize: 9, textDecorationLine: 'line-through' },
+  specialImgWrapper: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#FFFFFF', // ✅ force white
+  },
+  
 
   // --- MOST LOVED (WITH BACKGROUND) ---
   mostLovedBackground: { borderRadius: 20, padding: 12, borderWidth: 1, borderColor: '#FFF' },
@@ -1187,6 +1202,15 @@ const styles = StyleSheet.create({
   mostLovedImgBorder: { width: 64, height: 64, borderRadius: 32, padding: 2, borderWidth: 1.5, borderColor: '#D6C28A', marginBottom: 6 },
   mostLovedThumb: { width: '100%', height: '100%', borderRadius: 32 },
   mostLovedPriceTiny: { color: '#FFF', fontSize: 10, fontWeight: '700' },
+  mostLovedImgInner: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 32,
+    backgroundColor: '#FFFFFF', // ✅ force white
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
 
   // --- INLINE BANNER ---
   inlineBannerCard: { width: '100%', marginTop: 16, marginBottom: 16, borderRadius: 16, overflow: 'hidden', borderWidth: 1, borderColor: '#334155' },

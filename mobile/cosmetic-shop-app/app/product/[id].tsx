@@ -1031,7 +1031,7 @@ const styles = StyleSheet.create({
   loadingTagline: { color: '#D4AF37', textTransform: 'uppercase' },
 
   galleryContainer: { alignItems: 'center', paddingTop: 12, paddingBottom: 4 },
-  mainImageWrapper: { width: SCREEN_WIDTH - 40, height: 260, borderRadius: 16, overflow: 'hidden', backgroundColor: '#F5F5F5', marginBottom: 8, borderWidth: 1, borderColor: '#1e293b' },
+  mainImageWrapper: { width: SCREEN_WIDTH - 40, height: 260, borderRadius: 16, overflow: 'hidden', backgroundColor: '#F7F6F3', marginBottom: 8, borderWidth: 1, borderColor: '#1e293b' },
   mainImage: { width: '100%', height: '100%' },
   
   thumbnailScroll: { marginTop: 8, paddingHorizontal: 20 },
@@ -1113,7 +1113,7 @@ const styles = StyleSheet.create({
   viewAllText: { fontSize: 12, fontWeight: '700', color: '#D4AF37' },
   grid: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 12 },
   gridCard: { width: '50%', paddingHorizontal: 6, paddingTop: 6, paddingBottom: 10, marginBottom: 4, backgroundColor: 'transparent' },
-  gridImgWrapper: { height: 150, width: '100%', marginBottom: 6, backgroundColor: '#F5F5F5', borderRadius: 16, justifyContent: 'center', alignItems: 'center', overflow: 'hidden', borderWidth: 1, borderColor: '#1e293b' },
+  gridImgWrapper: { height: 150, width: '100%', marginBottom: 6, backgroundColor: '#F7F6F3', borderRadius: 16, justifyContent: 'center', alignItems: 'center', overflow: 'hidden', borderWidth: 1, borderColor: '#1e293b' },
   gridImg: { width: '100%', height: '100%' },
   gridPlaceholder: { width: '100%', height: '100%', backgroundColor: '#fffff' },
   gridName: { fontSize: 13, fontWeight: '600', color: '#e5e7eb', marginBottom: 2, lineHeight: 17 },

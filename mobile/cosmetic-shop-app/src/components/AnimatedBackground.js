@@ -49,7 +49,7 @@ const AnimatedBackground = () => {
   return (
     <LinearGradient
       // Changed bottom colors from #020617 to #111827 (lighter dark)
-      colors={['#2874f0', '#111827', '#111827']}
+      colors={['#2874e0', '#111825', '#678']}
       // Blue stops at 15% down, rest is the new lighter dark color
       locations={[0, 0.15, 1]}
       style={styles.container}
